@@ -21,6 +21,8 @@ const { width } = Dimensions.get('screen')
 
 const images = [BikePNG, BikePNG, BikePNG]
 
+const isActive = true
+
 export function MyAdDetails() {
   const { colors } = useTheme()
 
@@ -29,31 +31,34 @@ export function MyAdDetails() {
       flex={1}
       bg={'gray.600'}
     >
+      <Box
+        h={width / 4}
+        bg={'gray.700'}
+      >
+        <ButtonIcon
+          position={'absolute'}
+          left={6}
+          bottom={3}
+          icon="arrow-left"
+        />
+
+        <ButtonIcon
+          position={'absolute'}
+          right={6}
+          bottom={3}
+          icon="square-edit-outline"
+        />
+      </Box>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         _contentContainerStyle={{ pb: 5 }}
         bounces={false}
       >
-        <Box
-          h={width / 4}
-          bg={'gray.700'}
-        >
-          <ButtonIcon
-            position={'absolute'}
-            left={6}
-            bottom={3}
-            icon="arrow-left"
-          />
-
-          <ButtonIcon
-            position={'absolute'}
-            right={6}
-            bottom={3}
-            icon="square-edit-outline"
-          />
-        </Box>
-
-        <Carousel images={images} />
+        <Carousel
+          images={images}
+          isActive={isActive}
+        />
 
         <VStack
           flex={1}
@@ -256,8 +261,8 @@ export function MyAdDetails() {
           <VStack space={2}>
             <Button
               icon="power"
-              variant={'secondary'}
-              text="Desativar anúncio"
+              variant={isActive ? 'secondary' : 'primary'}
+              text={`${isActive ? 'Desativar' : 'Reativar'} anúncio`}
             />
             <Button
               icon="trash-can-outline"
