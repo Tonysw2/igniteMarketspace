@@ -1,13 +1,19 @@
 import { THEME } from '@theme/index'
-import { IInputProps, Input as NativeBaseInput, Pressable } from 'native-base'
+import {
+  IInputProps,
+  Input as NativeBaseInput,
+  Pressable,
+  Text,
+} from 'native-base'
 import { MaterialCommunityIcons as Icons } from '@expo/vector-icons'
 
 type Props = IInputProps & {
   icon?: keyof typeof Icons.glyphMap
+  prefix?: string
   onPressIcon?: () => void
 }
 
-export function Input({ icon, onPressIcon, ...rest }: Props) {
+export function Input({ icon, prefix, onPressIcon, ...rest }: Props) {
   return (
     <NativeBaseInput
       w={'full'}
@@ -20,6 +26,18 @@ export function Input({ icon, onPressIcon, ...rest }: Props) {
       color={'gray.200'}
       placeholderTextColor={'gray.400'}
       rounded={'md'}
+      InputLeftElement={
+        prefix ? (
+          <Text
+            ml={4}
+            fontFamily={'body'}
+            fontSize={'md'}
+            color={'gray.200'}
+          >
+            {prefix}
+          </Text>
+        ) : undefined
+      }
       InputRightElement={
         icon ? (
           <Pressable
