@@ -48,6 +48,9 @@ export function MyAds() {
             icon="plus"
             position={'absolute'}
             right={0}
+            onPress={() =>
+              navigation.navigate('createAd', { title: 'Criar anúncio' })
+            }
           />
         </HStack>
       </Center>

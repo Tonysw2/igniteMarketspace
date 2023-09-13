@@ -1,87 +1,55 @@
-import {
-  BottomTabNavigationProp,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs'
 import { AdDetails } from '@screens/AdDetails'
-import { Home } from '@screens/Home'
-import { MyAds } from '@screens/MyAds'
-import { useTheme } from 'native-base'
-import { MaterialCommunityIcons as Icons } from '@expo/vector-icons'
-import { MyAdDetails } from '@screens/MyAdDetails'
 
-type AppRoutesType = {
-  home: undefined
-  myAds: undefined
+import { MyAdDetails } from '@screens/MyAdDetails'
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack'
+import { CreateAd } from '@screens/CreateAd'
+import { AdPreview } from '@screens/AdPreview'
+import { TabParamList, TabRoutes } from './tab.routes'
+import { NavigatorScreenParams } from '@react-navigation/native'
+
+export type StackParamList = {
+  userTab: NavigatorScreenParams<TabParamList>
   adDetails: undefined
   myAdDetails: undefined
-  signOut: undefined
+  createAd: { id?: number; title: string }
+  adPreview: undefined
+  updateAd: undefined
 }
 
-export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutesType>
+export type AppNavigatorRoutesProps = NativeStackNavigationProp<StackParamList>
 
-const { Navigator, Screen } = createBottomTabNavigator<AppRoutesType>()
+const Stack = createNativeStackNavigator<StackParamList>()
 
 export function AppRoutes() {
-  const { colors } = useTheme()
-
   return (
-    <Navigator
+    <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: colors.gray[200],
-        tabBarInactiveTintColor: colors.gray[400],
-        tabBarStyle: {
-          backgroundColor: colors.gray[700],
-          borderTopWidth: 0,
-        },
       }}
     >
-      <Screen
-        name="home"
-        component={Home}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icons
-              name="home-variant-outline"
-              size={24}
-              color={color}
-            />
-          ),
-        }}
+      <Stack.Screen
+        name="userTab"
+        component={TabRoutes}
       />
-
-      <Screen
-        name="myAds"
-        component={MyAds}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Icons
-              name="tag-outline"
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      <Screen
-        options={{
-          tabBarButton: () => null,
-          tabBarStyle: { display: 'none' },
-        }}
+      <Stack.Screen
         name="adDetails"
         component={AdDetails}
       />
-
-      <Screen
-        options={{
-          tabBarButton: () => null,
-          tabBarStyle: { display: 'none' },
-        }}
+      <Stack.Screen
         name="myAdDetails"
         component={MyAdDetails}
       />
-    </Navigator>
+      <Stack.Screen
+        name="createAd"
+        component={CreateAd}
+      />
+      <Stack.Screen
+        name="adPreview"
+        component={AdPreview}
+      />
+    </Stack.Navigator>
   )
 }

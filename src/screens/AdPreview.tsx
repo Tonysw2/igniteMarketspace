@@ -16,23 +16,15 @@ import { Button } from '@components/Button'
 import { ButtonIcon } from '@components/ButtonIcon'
 import { MaterialCommunityIcons as Icons } from '@expo/vector-icons'
 import { Carousel } from '@components/Carousel'
-import { useNavigation } from '@react-navigation/native'
-import { AppNavigatorRoutesProps } from '@routes/app.routes'
-import { useState } from 'react'
 
 const { width } = Dimensions.get('screen')
 
 const images = [BikePNG, BikePNG, BikePNG]
 
-export function MyAdDetails() {
-  const [isActive, setIsActive] = useState(false)
+const isActive = true
 
+export function AdPreview() {
   const { colors } = useTheme()
-  const navigation = useNavigation<AppNavigatorRoutesProps>()
-
-  function toggleIsActive() {
-    setIsActive(!isActive)
-  }
 
   return (
     <VStack
@@ -40,26 +32,27 @@ export function MyAdDetails() {
       bg={'gray.600'}
     >
       <Box
-        h={width / 4}
-        bg={'gray.700'}
+        pt={16}
+        pb={4}
+        px={6}
+        bg={'blue.500'}
+        alignItems={'center'}
       >
-        <ButtonIcon
-          position={'absolute'}
-          left={6}
-          bottom={3}
-          icon="arrow-left"
-          onPress={() => navigation.navigate('userTab', { screen: 'myAds' })}
-        />
+        <Heading
+          fontFamily={'heading'}
+          fontSize={'md'}
+          color={'gray.700'}
+        >
+          Pré visualização do anúncio
+        </Heading>
 
-        <ButtonIcon
-          position={'absolute'}
-          right={6}
-          bottom={3}
-          icon="square-edit-outline"
-          onPress={() =>
-            navigation.navigate('createAd', { id: 1, title: 'Editar anúncio' })
-          }
-        />
+        <Text
+          fontFamily={'body'}
+          fontSize={'sm'}
+          color={'gray.700'}
+        >
+          É assim que seu produto vai aparecer!
+        </Text>
       </Box>
 
       <ScrollView
@@ -269,22 +262,30 @@ export function MyAdDetails() {
               </VStack>
             </VStack>
           </VStack>
-
-          <VStack space={2}>
-            <Button
-              icon="power"
-              variant={isActive ? 'secondary' : 'primary'}
-              text={`${isActive ? 'Desativar' : 'Reativar'} anúncio`}
-              onPress={toggleIsActive}
-            />
-
-            <Button
-              icon="trash-can-outline"
-              text="Excluir anúncio"
-            />
-          </VStack>
         </VStack>
       </ScrollView>
+
+      <HStack
+        pt={5}
+        pb={7}
+        px={6}
+        space={3}
+        bg={'gray.700'}
+      >
+        <Button
+          icon="arrow-left"
+          flex={1}
+          text="Voltar e editar"
+          variant={'default'}
+        />
+
+        <Button
+          icon="tag-outline"
+          flex={1}
+          text="Publicar"
+          variant={'primary'}
+        />
+      </HStack>
     </VStack>
   )
 }

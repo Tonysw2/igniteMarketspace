@@ -8,9 +8,6 @@ import {
 import { THEME } from '@theme/index'
 import { Loading } from '@components/Loading'
 import { Routes } from '@routes/index'
-import { MyAdDetails } from '@screens/MyAdDetails'
-import { AdDetails } from '@screens/AdDetails'
-import { CreateAd } from '@screens/CreateAd'
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Karla_400Regular, Karla_700Bold })
@@ -23,7 +20,7 @@ export default function App() {
         barStyle="dark-content"
       />
 
-      {fontsLoaded ? <CreateAd /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   )
 }

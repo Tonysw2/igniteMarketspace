@@ -25,7 +25,7 @@ export function FilterModal({ onCloseModal, ...rest }: Props) {
 
   return (
     <Modal
-      animationPreset="slide"
+      animationPreset="fade"
       bg={'#00000060'}
       justifyContent={'flex-end'}
       {...rest}

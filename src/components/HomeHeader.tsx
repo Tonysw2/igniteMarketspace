@@ -1,8 +1,14 @@
 import { Avatar, HStack, Heading, Text, VStack } from 'native-base'
 import { Button } from './Button'
 import DefaultUserAvatarPNG from '@assets/avatar.png'
+import { useNavigation } from '@react-navigation/native'
+import { AppNavigatorRoutesProps } from '@routes/app.routes'
 
-export function HomeHeader() {
+type Props = {
+  goToCreateAdd: () => void
+}
+
+export function HomeHeader({ goToCreateAdd }: Props) {
   return (
     <HStack space={2}>
       <HStack
@@ -35,9 +41,10 @@ export function HomeHeader() {
       </HStack>
 
       <Button
+        icon="plus"
         variant={'secondary'}
         text="Criar anúncio"
-        icon="plus"
+        onPress={goToCreateAdd}
       />
     </HStack>
   )

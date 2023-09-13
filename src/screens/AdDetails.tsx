@@ -2,7 +2,6 @@ import { Dimensions } from 'react-native'
 import {
   Avatar,
   Box,
-  Center,
   HStack,
   Heading,
   ScrollView,
@@ -19,6 +18,8 @@ import { MaterialCommunityIcons as Icons } from '@expo/vector-icons'
 import BikePNG from '@assets/bike.png'
 import AvatarPNG from '@assets/avatar.png'
 import { TagSimple } from '@components/TagSimple'
+import { useNavigation } from '@react-navigation/native'
+import { AppNavigatorRoutesProps } from '@routes/app.routes'
 
 const { width } = Dimensions.get('screen')
 
@@ -26,6 +27,7 @@ const images = [BikePNG, BikePNG, BikePNG]
 
 export function AdDetails() {
   const { colors } = useTheme()
+  const navigation = useNavigation<AppNavigatorRoutesProps>()
 
   return (
     <VStack
@@ -42,6 +44,11 @@ export function AdDetails() {
             left={6}
             bottom={3}
             icon="arrow-left"
+            onPress={() =>
+              navigation.navigate('userTab', {
+                screen: 'home',
+              })
+            }
           />
         </Box>
 
