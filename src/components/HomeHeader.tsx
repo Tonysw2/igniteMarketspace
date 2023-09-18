@@ -1,14 +1,16 @@
 import { Avatar, HStack, Heading, Text, VStack } from 'native-base'
 import { Button } from './Button'
 import DefaultUserAvatarPNG from '@assets/avatar.png'
-import { useNavigation } from '@react-navigation/native'
-import { AppNavigatorRoutesProps } from '@routes/app.routes'
+import { useAuth } from '@hooks/useAuth'
+import { api } from '@services/api'
 
 type Props = {
   goToCreateAdd: () => void
 }
 
 export function HomeHeader({ goToCreateAdd }: Props) {
+  const { user } = useAuth()
+
   return (
     <HStack space={2}>
       <HStack
@@ -16,7 +18,11 @@ export function HomeHeader({ goToCreateAdd }: Props) {
         flexGrow={1}
       >
         <Avatar
-          source={{ uri: 'https://github.com/tonysw2.png' }}
+          source={
+            user.avatar
+              ? { uri: `${api.defaults.baseURL}/images/${user.avatar}` }
+              : DefaultUserAvatarPNG
+          }
           borderWidth={1}
           borderColor={'blue.500'}
           bg={'blue.500'}
@@ -31,11 +37,12 @@ export function HomeHeader({ goToCreateAdd }: Props) {
             Boas vindas,
           </Text>
           <Heading
+            textTransform={'capitalize'}
             fontFamily={'heading'}
             fontSize={'md'}
             color={'gray.100'}
           >
-            Maria!
+            {user.name.split(' ')[0]}!
           </Heading>
         </VStack>
       </HStack>

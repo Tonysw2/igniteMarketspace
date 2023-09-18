@@ -39,6 +39,6 @@ export const THEME = extendTheme({
     14: 56,
     33: 148,
     70: 280,
-    screenWidth: screenWidth,
+    screenWidth,
   },
 })

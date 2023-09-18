@@ -4,8 +4,11 @@ import {
 } from '@react-navigation/bottom-tabs'
 import { Home } from '@screens/Home'
 import { MyAds } from '@screens/MyAds'
-import { Box, useTheme } from 'native-base'
+import { Box, useTheme, useToast } from 'native-base'
 import { MaterialCommunityIcons as Icons } from '@expo/vector-icons'
+import { useAuth } from '@hooks/useAuth'
+import { AppError } from '@utils/AppError'
+import { EventArg } from '@react-navigation/native'
 
 export type TabParamList = {
   home: undefined
@@ -18,7 +21,28 @@ export type TabNavigatorRoutesProps = BottomTabNavigationProp<TabParamList>
 const Tab = createBottomTabNavigator<TabParamList>()
 
 export function TabRoutes() {
+  const { signOut } = useAuth()
   const { colors } = useTheme()
+  const toast = useToast()
+
+  async function handleSignOut(event: EventArg<'tabPress', true, undefined>) {
+    event.preventDefault()
+
+    try {
+      await signOut()
+    } catch (error) {
+      const isAppError = error instanceof AppError
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível sair da conta, tente novamente.'
+
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      })
+    }
+  }
 
   return (
     <Tab.Navigator
@@ -65,9 +89,7 @@ export function TabRoutes() {
         name="signOut"
         component={Box}
         listeners={{
-          tabPress: (event) => {
-            event.preventDefault()
-          },
+          tabPress: handleSignOut,
         }}
         options={{
           tabBarIcon: () => (

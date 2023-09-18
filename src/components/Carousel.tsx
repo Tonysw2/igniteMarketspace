@@ -1,6 +1,14 @@
-import { Box, Center, Heading, Text, VStack } from 'native-base'
+import {
+  Box,
+  Center,
+  Heading,
+  Text,
+  VStack,
+  FlatList,
+  Image,
+} from 'native-base'
 import { useState } from 'react'
-import { FlatList, Image } from 'native-base'
+
 import {
   Dimensions,
   NativeScrollEvent,

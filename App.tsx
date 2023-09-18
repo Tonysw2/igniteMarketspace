@@ -8,19 +8,27 @@ import {
 import { THEME } from '@theme/index'
 import { Loading } from '@components/Loading'
 import { Routes } from '@routes/index'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { AuthProvider } from '@contexts/AuthContext'
+
+const queryClient = new QueryClient()
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Karla_400Regular, Karla_700Bold })
 
   return (
-    <NativeBaseProvider theme={THEME}>
-      <StatusBar
-        backgroundColor={'transparent'}
-        translucent
-        barStyle="dark-content"
-      />
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <NativeBaseProvider theme={THEME}>
+          <StatusBar
+            backgroundColor={'transparent'}
+            translucent
+            barStyle="dark-content"
+          />
 
-      {fontsLoaded ? <Routes /> : <Loading />}
-    </NativeBaseProvider>
+          {fontsLoaded ? <Routes /> : <Loading />}
+        </NativeBaseProvider>
+      </QueryClientProvider>
+    </AuthProvider>
   )
 }

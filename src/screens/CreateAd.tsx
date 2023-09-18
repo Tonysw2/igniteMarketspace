@@ -55,7 +55,7 @@ export function CreateAd() {
               left={0}
               zIndex={999}
               onPress={() => {
-                if (!!id) {
+                if (id) {
                   return navigation.navigate('myAdDetails')
                 }
 

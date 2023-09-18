@@ -4,7 +4,6 @@ import { HomeHeader } from '@components/HomeHeader'
 import { Input } from '@components/Input'
 import {
   CompositeNavigationProp,
-  CompositeScreenProps,
   useNavigation,
 } from '@react-navigation/native'
 import {
@@ -20,7 +19,7 @@ import { MaterialCommunityIcons as Icons } from '@expo/vector-icons'
 import { Dimensions, FlatList } from 'react-native'
 import { useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { TabNavigatorRoutesProps, TabParamList } from '@routes/tab.routes'
+import { TabParamList } from '@routes/tab.routes'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { StackParamList } from '@routes/app.routes'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -51,7 +50,11 @@ export function Home() {
   }
 
   return (
-    <VStack mt={top}>
+    <VStack
+      style={{
+        marginTop: top,
+      }}
+    >
       <ScrollView
         _contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
